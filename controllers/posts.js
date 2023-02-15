@@ -17,7 +17,7 @@ export const getPosts = async (req, res) => {
   const { page } = req.query;
 
   try {
-    const LIMIT = 8;
+    const LIMIT = 6;
     const startIndex = (Number(page) - 1) * LIMIT;
     const total = await PostMessage.countDocuments({});
     const posts = await PostMessage.find()
@@ -128,3 +128,16 @@ export const searchPosts = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const commentPost = async (req, res) => {
+  const { id } = req.params;
+  const { value } = req.body;
+
+  const post = await PostMessage.findById(id);
+
+  post.comments.push(value);
+
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true});
+
+  res.json(updatedPost);
+}
