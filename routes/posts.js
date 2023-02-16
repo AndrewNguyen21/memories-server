@@ -8,7 +8,8 @@ import {
   deletePost,
   likePost,
   searchPosts,
-  commentPost
+  commentPost,
+  getPostsByCreator
 } from '../controllers/posts.js';
 
 import auth from '../middleware/auth.js';
@@ -17,6 +18,7 @@ const router = express.Router();
 
 router.get('/', getPosts);
 router.get('/search', searchPosts);
+router.get('/creator', getPostsByCreator);
 router.get('/:id', getPost);
 
 router.post('/', auth, createPost);
