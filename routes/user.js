@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 
 import { signin, signup } from '../controllers/user.js';
 

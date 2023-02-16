@@ -7,7 +7,7 @@ const auth = async (req, res, next) => {
 
     let decodedData;
 
-    if(token && isCustomAuth) {
+    if (token && isCustomAuth) {
       decodedData = jwt.verify(token, 'test');
 
       req.userId = decodedData?.id;
@@ -17,10 +17,8 @@ const auth = async (req, res, next) => {
       req.userId = decodedData?.sub;
     }
 
-    next(); 
-  } catch (error) {
-    
-  }
-}
+    next();
+  } catch (error) {}
+};
 
 export default auth;

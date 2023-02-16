@@ -11,7 +11,7 @@ export const getPost = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error });
   }
-}
+};
 
 export const getPosts = async (req, res) => {
   const { page } = req.query;
@@ -25,13 +25,11 @@ export const getPosts = async (req, res) => {
       .limit(LIMIT)
       .skip(startIndex);
 
-    res
-      .status(200)
-      .json({
-        data: posts,
-        currentPage: Number(page),
-        numberOfPages: Math.ceil(total / LIMIT),
-      });
+    res.status(200).json({
+      data: posts,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
   } catch (error) {
     res.status(404).json({ message: error });
   }
@@ -137,19 +135,21 @@ export const commentPost = async (req, res) => {
 
   post.comments.push(value);
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true});
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
+    new: true,
+  });
 
   res.json(updatedPost);
-}
+};
 
 export const getPostsByCreator = async (req, res) => {
   const { name } = req.query;
 
   try {
-      const posts = await PostMessage.find({ name });
+    const posts = await PostMessage.find({ name });
 
-      res.json({ data: posts });
-  } catch (error) {    
-      res.status(404).json({ message: error.message });
+    res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
-}
+};
